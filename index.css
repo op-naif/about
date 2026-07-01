@@ -1,0 +1,212 @@
+import { useState } from 'react';
+import { motion } from 'motion/react';
+import { Youtube, ExternalLink, Copy, CheckCircle2, Award } from 'lucide-react';
+
+export default function SocialHub() {
+  const [copied, setCopied] = useState(false);
+
+  const copyDiscord = async () => {
+    try {
+      await navigator.clipboard.writeText('op_naif');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (err) {
+      console.warn('Clipboard fallback copy error:', err);
+    }
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: -20, filter: 'blur(10px)' },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+    }
+  };
+
+  const cardContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30, filter: 'blur(10px)' },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+    }
+  };
+
+  return (
+    <section id="socials" className="relative py-24 md:py-32 px-4 md:px-8 max-w-7xl mx-auto z-10 select-none">
+      
+      {/* Visual Header */}
+      <motion.div 
+        className="flex flex-col items-center text-center gap-4 mb-16"
+        variants={headerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <div className="flex items-center gap-2 text-xs font-mono tracking-[0.25em] text-neutral-400 uppercase">
+          <Award className="w-4 h-4 text-white" />
+          <span>Connect With Me</span>
+        </div>
+        <h2 className="text-4xl sm:text-5xl font-display font-bold text-white tracking-tight">
+          Socials & Links
+        </h2>
+        <p className="text-xs sm:text-sm font-mono text-neutral-400 uppercase tracking-widest max-w-lg">
+          Follow my active gaming channels, videos, and community links
+        </p>
+      </motion.div>
+
+      {/* Grid of Social Channels - Purely Black & White High Contrast */}
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+        variants={cardContainerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        
+        {/* YouTube Card */}
+        <motion.a
+          variants={cardVariants}
+          href="https://youtube.com/@op_naif"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative group block liquid-glass backdrop-blur-xl rounded-2xl p-8 overflow-hidden border border-white/10 hover:border-white/30 hover:shadow-[0_0_50px_rgba(255,255,255,0.06)] transition-all duration-300 interactive-element"
+        >
+          {/* Top subtle light accent */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-white opacity-10 group-hover:opacity-100 transition-opacity duration-300" />
+
+          <div className="flex flex-col h-full justify-between gap-8">
+            <div className="flex justify-between items-start">
+              <div className="p-3 rounded-xl bg-white/5 border border-white/10 group-hover:bg-white/10 group-hover:border-white/20 transition-all duration-300">
+                <Youtube className="w-6 h-6 text-white group-hover:scale-105 transition-transform" />
+              </div>
+              <span className="text-[10px] font-mono tracking-wider text-neutral-500 uppercase bg-white/5 px-2 py-0.5 rounded">
+                YouTube Channel
+              </span>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-xl font-display font-bold text-white tracking-tight">
+                @op_naif
+              </h3>
+              <p className="text-xs text-neutral-400 leading-relaxed font-sans font-light">
+                Mainly creates Minecraft gameplay tutorials, community reviews, and server highlights.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between text-xs font-mono text-neutral-400 group-hover:text-white transition-colors pt-4 border-t border-white/5">
+              <span>View Videos</span>
+              <ExternalLink className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </div>
+          </div>
+        </motion.a>
+
+        {/* TikTok Card */}
+        <motion.a
+          variants={cardVariants}
+          href="https://www.tiktok.com/@op_naif_"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative group block liquid-glass backdrop-blur-xl rounded-2xl p-8 overflow-hidden border border-white/10 hover:border-white/30 hover:shadow-[0_0_50px_rgba(255,255,255,0.06)] transition-all duration-300 interactive-element"
+        >
+          {/* Top subtle light accent */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-white opacity-10 group-hover:opacity-100 transition-opacity duration-300" />
+
+          <div className="flex flex-col h-full justify-between gap-8">
+            <div className="flex justify-between items-start">
+              <div className="p-3 rounded-xl bg-white/5 border border-white/10 group-hover:bg-white/10 group-hover:border-white/20 transition-all duration-300">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white group-hover:scale-105 transition-transform">
+                  <path d="M12.525.02c1.31-.03 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.94-1.72-.49-.44-.9-.97-1.24-1.55v7.21c.02 1.98-.6 4.02-2.04 5.4-1.63 1.62-4.14 2.22-6.38 1.75-2.4-.46-4.47-2.31-5.16-4.63-.82-2.61-.1-5.63 1.83-7.53 1.63-1.64 4.05-2.29 6.27-1.85V13.5c-1.13-.3-2.37-.11-3.3.56-.98.7-1.48 1.94-1.36 3.14.1 1.27.91 2.43 2.06 2.9 1.17.49 2.58.29 3.53-.51.72-.6.99-1.54.98-2.44V.02z" />
+                </svg>
+              </div>
+              <span className="text-[10px] font-mono tracking-wider text-neutral-500 uppercase bg-white/5 px-2 py-0.5 rounded">
+                TikTok Handle
+              </span>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-xl font-display font-bold text-white tracking-tight">
+                @op_naif_
+              </h3>
+              <p className="text-xs text-neutral-400 leading-relaxed font-sans font-light">
+                Short-form gaming highlights, Minecraft challenges, and various quick game clips.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between text-xs font-mono text-neutral-400 group-hover:text-white transition-colors pt-4 border-t border-white/5">
+              <span>View Shorts</span>
+              <ExternalLink className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </div>
+          </div>
+        </motion.a>
+
+        {/* Discord Card */}
+        <motion.div
+          variants={cardVariants}
+          className="relative group liquid-glass backdrop-blur-xl rounded-2xl p-8 overflow-hidden border border-white/10 hover:border-white/30 hover:shadow-[0_0_50px_rgba(255,255,255,0.06)] transition-all duration-300"
+        >
+          {/* Top subtle light accent */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-white opacity-10 group-hover:opacity-100 transition-opacity duration-300" />
+
+          <div className="flex flex-col h-full justify-between gap-8">
+            <div className="flex justify-between items-start">
+              <div className="p-3 rounded-xl bg-white/5 border border-white/10 group-hover:bg-white/10 group-hover:border-white/20 transition-all duration-300">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white group-hover:scale-105 transition-transform">
+                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z" />
+                </svg>
+              </div>
+              <span className="text-[10px] font-mono tracking-wider text-neutral-500 uppercase bg-white/5 px-2 py-0.5 rounded">
+                Discord Client
+              </span>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-xl font-display font-bold text-white tracking-tight">
+                op_naif
+              </h3>
+              <p className="text-xs text-neutral-400 leading-relaxed font-sans font-light">
+                Connect directly for collaboration, server questions, or general community chats.
+              </p>
+            </div>
+
+            <button
+              onClick={copyDiscord}
+              className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-mono text-xs uppercase tracking-widest font-bold transition-all duration-300 cursor-pointer interactive-element ${
+                copied 
+                  ? 'bg-neutral-800 text-white shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-white/20' 
+                  : 'bg-white text-black hover:bg-neutral-200'
+              }`}
+            >
+              {copied ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 text-white animate-pulse" />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>Copy Username</span>
+                </>
+              )}
+            </button>
+          </div>
+        </motion.div>
+
+      </motion.div>
+
+    </section>
+  );
+}
